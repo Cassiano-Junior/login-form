@@ -1,14 +1,11 @@
-import React from 'react';
-import {Image} from './style'
-import foto from '../../assets/side-image.jpg'
+import styled from 'styled-components';
 
-const SidePicture = () => {
-    return ( 
-    <Image>
-        <img src={foto} alt="" /> 
-    </Image>
-    )
-}
+const Image = styled.div`
+    background-image: url('src/assets/side-image-2x.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 50%;
+    height: 100%;
+`
 
-export default SidePicture;
- 
+export default Image;

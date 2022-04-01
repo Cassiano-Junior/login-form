@@ -1,5 +1,5 @@
 import React from 'react';
-import Form from '../Form';
+import Card from '../Card';
 import Logo from '../Logo';
 import {Container} from './style'
 
@@ -7,7 +7,7 @@ const Main = () => {
     return ( 
         <Container>
             <Logo />
-            <Form />
+            <Card />
         </Container>
      );
 }
