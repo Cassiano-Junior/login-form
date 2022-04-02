@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef, useEffect} from 'react';
 import {Button, Container, Email, Form, Header, InputRow, Password, Register, RememberCheckbox, RememberRow, Title} from './style'
 import loginIcon from '../../assets/log-in.svg'
 import mailIcon from '../../assets/mail.svg'
@@ -6,13 +6,17 @@ import lockIcon from '../../assets/lock.svg'
 import eyeIcon from '../../assets/eye.svg' 
 
 const Card = () => {
-    const inputPassword = document.querySelector('#senha')
-    const eye = document.querySelector('#eye')
+    const inputPassword = useRef(null);
+    const eye = useRef(null)
 
-    // eye.addEventListener('click', () => {
-    //     const type = inputPassword.getAttribute('type') === 'password' ? 'text' : 'password'
-    //     inputPassword.setAttribute('type', type)
-    // })
+    useEffect(() => {
+        if(!!inputPassword && !!eye) {
+            eye.current.addEventListener('click',() => {
+                const type = inputPassword.current.getAttribute('type') === 'password' ? 'text' : 'password';
+                inputPassword.current.setAttribute('type', type); 
+            })
+        }
+    }, [inputPassword, eye])
 
     return ( 
         <Container>
@@ -38,15 +42,15 @@ const Card = () => {
                     <label htmlFor="senha">Senha</label>
                     <InputRow>
                         <img src={lockIcon} alt="Lock Icon" />
-                        <input type="password" name="" id="senha" placeholder="Digite sua senha" />
-                        <img src={eyeIcon} alt="Eye Icon" id="eye"/>
+                        <input ref={inputPassword} type="password" name="" id="senha" placeholder="Digite sua senha" />
+                        <img src={eyeIcon} alt="Eye Icon" id="eye" ref={eye}/>
                     </InputRow>
                 </Password>
                     
                 <RememberRow>
                     <RememberCheckbox>
                         <input type="checkbox" name="" id="checkbox" />
-                        <span class="checkmark"></span>
+                        <span className="checkmark"></span>
                         <span>Lembre-me</span>
                     </RememberCheckbox>
                     <a href="#">Esqueci minha senha</a>

@@ -95,6 +95,10 @@ export const InputRow = styled.div`
 `
 
 export const Password = styled(Email)`
+    img {
+        cursor:pointer;
+    }
+
 `
 
 export const RememberRow = styled.div`
