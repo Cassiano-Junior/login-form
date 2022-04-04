@@ -1,11 +1,15 @@
-import React, {useRef, useEffect} from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import {Button, Container, Email, Form, Header, InputRow, Password, Register, RememberCheckbox, RememberRow, Title} from './style'
 import loginIcon from '../../assets/log-in.svg'
-import mailIcon from '../../assets/mail.svg'
-import lockIcon from '../../assets/lock.svg'
 import eyeIcon from '../../assets/eye.svg' 
 
 const Card = () => {
+    const [formInfo, setFormInfo] = useState({
+        mail: '',
+        password: '',
+        rememberPassword: false
+    });
+
     const inputPassword = useRef(null);
     const eye = useRef(null)
 
@@ -18,6 +22,28 @@ const Card = () => {
         }
     }, [inputPassword, eye])
 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        if(!formInfo.mail) {
+            alert('Preencher campo de e-mail!')
+        }
+        else if(!formInfo.password) {
+            alert('Preencher campo de senha!')
+        }
+        else alert('Formulário criado com sucesso!')
+
+        console.log(formInfo)
+    }
+
+    const handleChange = (event) => {
+        const {target: {name, value, checked, type}} = event
+        setFormInfo({
+            ...formInfo, 
+            [name] : type === 'checkbox' ? checked : value
+        })
+    }
+
     return ( 
         <Container>
             <Header>
@@ -29,27 +55,46 @@ const Card = () => {
             </Header>
 
 
-            <Form>
+            <Form onSubmit={handleSubmit}>
                 <Email>
                     <label htmlFor="email">E-mail</label>
                     <InputRow>
-                        <img src={mailIcon} alt="Ícone do e-mail" />
-                        <input type="email" name="" id="email" placeholder="Digite seu e-mail"/>
+                        <input 
+                            type="email" 
+                            name="mail" 
+                            id="email" 
+                            placeholder="Digite seu e-mail"
+                            value={formInfo.mail}
+                            onChange={handleChange}
+                        />
                     </InputRow>
                 </Email>
 
                 <Password>
                     <label htmlFor="senha">Senha</label>
                     <InputRow>
-                        <img src={lockIcon} alt="Lock Icon" />
-                        <input ref={inputPassword} type="password" name="" id="senha" placeholder="Digite sua senha" />
+                        <input 
+                            ref={inputPassword} 
+                            type="password" 
+                            name="password" 
+                            id="senha" 
+                            placeholder="Digite sua senha"
+                            value={formInfo.password}
+                            onChange={handleChange}
+                        />
                         <img src={eyeIcon} alt="Eye Icon" id="eye" ref={eye}/>
                     </InputRow>
                 </Password>
                     
                 <RememberRow>
                     <RememberCheckbox>
-                        <input type="checkbox" name="" id="checkbox" />
+                        <input 
+                            type="checkbox" 
+                            name="rememberPassword" 
+                            id="checkbox" 
+                            checked={formInfo.rememberPassword}
+                            onChange={handleChange}
+                        />
                         <span className="checkmark"></span>
                         <span>Lembre-me</span>
                     </RememberCheckbox>

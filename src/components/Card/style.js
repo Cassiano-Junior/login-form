@@ -66,16 +66,14 @@ export const InputRow = styled.div`
     display: flex;
     align-items: center;
     gap: 5px;
-    padding: 12px;
-    border: 2px solid #868686;
-    border-radius: 4px;
     margin-bottom: 20px;
+    position: relative;
+
 
 
     input { 
         padding: 0;
         background-color: transparent;
-        border: none;
         font-family: 'Roboto';
         font-style: normal;
         font-weight: 400;
@@ -83,6 +81,22 @@ export const InputRow = styled.div`
         color: #a9afb9;
         outline: none;
         width: 100%;
+        background-image: url(src/assets/mail.svg);
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+        background-position-y: center;
+        background-position-x: 12px;
+        padding: 12px;
+        padding-left: 35px;
+        border: 2px solid #868686;
+        border-radius: 4px;
+        transition: all 0.5s;
+    }
+
+    input:focus{
+        border-color: var(--primary-color);
+        background-image: url(src/assets/mail-focus.svg);
+        
     }
 
     input::placeholder {
@@ -95,6 +109,20 @@ export const InputRow = styled.div`
 `
 
 export const Password = styled(Email)`
+    #eye {
+        position: absolute;
+        right: 12px;
+        top: 12px;
+    }
+
+    input {
+        background-image: url(src/assets/lock.svg);
+    }
+
+    input:focus {
+        background-image: url(src/assets/lock-focus.svg)
+    }
+
     img {
         cursor:pointer;
     }
