@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import {Button, Container, Email, Form, Header, InputRow, Password, Register, RememberCheckbox, RememberRow, Title} from './style'
 import loginIcon from '../../assets/log-in.svg'
 import eyeIcon from '../../assets/eye.svg' 
-
+import api from '../../services/api'
 const Card = () => {
     const [formInfo, setFormInfo] = useState({
         mail: '',
@@ -22,18 +22,27 @@ const Card = () => {
         }
     }, [inputPassword, eye])
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const handleSubmit = async (event) => {
+        try {
+            event.preventDefault();
 
-        if(!formInfo.mail) {
-            alert('Preencher campo de e-mail!')
-        }
-        else if(!formInfo.password) {
-            alert('Preencher campo de senha!')
-        }
-        else alert('Formulário criado com sucesso!')
+            if(!formInfo.mail) {
+                alert('Preencher campo de e-mail!')
+            }
+            
+            else if(!formInfo.password) {
+                alert('Preencher campo de senha!')
+            }
 
-        console.log(formInfo)
+            else {
+                const user = await api.post('/user', { email: formInfo.mail, senha: formInfo.password})
+                console.log(user)
+            }
+
+        } catch (error) {
+            alert(error.message)
+        }
+         
     }
 
     const handleChange = (event) => {
